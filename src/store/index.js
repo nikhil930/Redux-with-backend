@@ -26,8 +26,6 @@ const changeItem = createSlice({
             }
         },
         removeFromCart(state ,action){
-            // console.log(action.payload);
-            // console.log(state);
             const y=state.items.find((element  ,index)=>{
                 // console.log(element.title);
              return element.id===action.payload.id});
@@ -49,35 +47,26 @@ const changeItem = createSlice({
 
 })
 
-// const removeItem =createSlice({
-//     name:'removefromCart',
-//     initialState:items,
-//     reducers:{
-//         removeFromCart(state ,action){
-//             // console.log(action.payload);
-//             console.log(initialStateItem);
-            
-//                 // console.log(action.payload);
-//                 // console.log(state.items);
-//                 // if(y.amount===1)
-//                 // {
-//                 //     const r=state.items.findIndex((element)=>{
-//                 //         return element.title===action.payload.title ;
-//                 //     })
-//                 //    state.items.splice(r,1);
-//                 // }
-//                 // else
-//                 // {
-//                 //     y.amount--;
-//                 // }
-//     }
-// }
-// })
+const uiChange = createSlice({
+    name:'change-ui',
+    initialState:{ notification:null , isShowing:false },
+    reducers:{
+        notifyChange(state , action){
+            state.notification={
+                status:action.payload.status,
+                title:action.payload.title,
+                message:action.payload.message
+            }
+            state.isShowing=true;
+        }
+    }
+})
+
 
 export const changeActions=changeItem.actions;
-
+export const notifyAction = uiChange.actions;
 const store = configureStore({
-    reducer:{changeItem:changeItem.reducer}
+    reducer:{changeItem:changeItem.reducer, uiChange:uiChange.reducer}
 })
 
 export default store;
